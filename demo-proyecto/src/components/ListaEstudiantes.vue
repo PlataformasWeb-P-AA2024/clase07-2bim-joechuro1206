@@ -1,15 +1,19 @@
 <template>
   <div>
-    <h1>Lista de Estudiantes</h1>
+    <h1>Lista de Edificios</h1>
     <center>
     <table class="mi-tabla">
       <tr>
         <th>Nombre</th>
-        <th>Apellido</th>
+        <th>Direccion</th>
+        <th>Ciudad</th>
+        <th>Tipo</th>
       </tr>
-      <tr v-for="estudiante in estudiantes" :key="estudiante.id">
-        <td>{{ estudiante.nombre }}</td>
-        <td>{{ estudiante.apellido }}</td>
+      <tr v-for="edificio in Edificios" :key="edificio.id">
+        <td>{{ edificio.nombre }}</td>
+        <td>{{ edificio.direccion }}</td>
+        <td>{{ edificio.ciudad }}</td>
+        <td>{{ edificio.tipo }}</td>
       </tr>
     </table>
     </center>
@@ -22,19 +26,20 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      estudiantes: []
+      Edificios: []
     };
   },
   created() {
-    this.fetchEstudiantes();
+    this.fetchEdificios();
   },
   methods: {
-    async fetchEstudiantes() {
+    async fetchEdificios() {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/estudiantes/');
-        this.estudiantes = response.data;
+        const response = await axios.get('http://127.0.0.1:8000/api/edificios/');
+        console.log(response.data)
+        this.Edificios = response.data.results;
       } catch (error) {
-        console.error('Error obteniendo estudiantes:', error);
+        console.error('Error obteniendo Edificios:', error);
       }
     }
   }
